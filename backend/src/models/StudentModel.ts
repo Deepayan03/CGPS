@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IStudent extends Document {
-  user: mongoose.Types.ObjectId;
+  userId: mongoose.Types.ObjectId;
   rollNumber: string;
   department: string;
   cgpa: number;
@@ -11,7 +11,7 @@ export interface IStudent extends Document {
 
 const StudentSchema: Schema<IStudent> = new Schema(
   {
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
