@@ -2,24 +2,39 @@ import mongoose, { Document, Schema } from "mongoose";
 
 export interface IJob extends Document {
   title: string;
-  company: mongoose.Types.ObjectId;
+  company: string;
   postedBy: mongoose.Types.ObjectId;
   description: string;
   salary: number;
   skillsRequired: string[];
   applications: mongoose.Types.ObjectId[];
   postedAt: Date;
+  jobType: "full-time" | "internship" | "part-time";
 }
 
 const JobSchema: Schema<IJob> = new Schema(
   {
     title: { type: String, required: true },
-    company: { type: mongoose.Schema.Types.ObjectId, ref: "Company", required: true },
-    postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // The recruiter
+    company: {
+      type: String ,
+      required: true,
+    },
+    postedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Recruiter",
+      required: true,
+    },
     description: { type: String, required: true },
     salary: { type: Number, required: true },
     skillsRequired: { type: [String], required: true },
-    applications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Application" }],
+    applications: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Application" },
+    ],
+    jobType: {
+      type: String,
+      enum: ["full-time", "internship", "part-time"],
+      required: true,
+    },
   },
   { timestamps: true }
 );

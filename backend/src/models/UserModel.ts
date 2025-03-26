@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { truncate } from "node:fs";
 
 export interface IUser extends Document {
   name: string;
@@ -6,6 +7,7 @@ export interface IUser extends Document {
   password: string;
   role: "student" | "recruiter" | "admin";
   createdAt: Date;
+  address:string;
 }
 
 const UserSchema: Schema<IUser> = new Schema(
@@ -18,6 +20,11 @@ const UserSchema: Schema<IUser> = new Schema(
       enum: ["student", "recruiter", "admin"],
       required: true,
     },
+    address: {
+      type: String,
+      required: true,
+      trim: true
+    }    
   },
   { timestamps: true }
 );
