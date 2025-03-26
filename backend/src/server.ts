@@ -5,6 +5,8 @@ import authRoutes from "./routes/authRoutes";
 import studentRoutes from "./routes/studentRoutes";
 import recruiterRoutes from "./routes/recruiterRoutes";
 import jobRoutes from "./routes/jobRoutes";
+import morgan from "morgan";
+import bodyParser from "body-parser";
 const app = express();
 const port: number = 3000;
 dotenv.config();
@@ -12,7 +14,9 @@ connectDB();
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World!");
 });
-
+app.use(morgan("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/recruiters", recruiterRoutes);
