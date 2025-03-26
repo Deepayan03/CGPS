@@ -91,7 +91,10 @@ export const register = async (
   }
 };
 
-export const login = async (req: Request, res: Response): Promise<Response | void>  => {
+export const login = async (
+  req: Request,
+  res: Response
+): Promise<Response | void> => {
   const { email, password } = req.body;
 
   try {
@@ -136,17 +139,61 @@ export const login = async (req: Request, res: Response): Promise<Response | voi
       .json({ message: "Something went wrong", error: error.message });
   }
 };
-export const logout = async (req:Request, res:Response): Promise<Response | void>  => {
+export const logout = async (
+  req: Request,
+  res: Response
+): Promise<Response | void> => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+
+    return res.status(200).json({ message: "Logged out successfully" });
+  } catch (error: any) {
+    return res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
+  }
+};
+
+export const getMyProfile = async (req: any, res: any) => {
     try {
-      res.clearCookie("token", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-      });
+      const userId = req.params.userId; 
+      
+      if (!userId) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
   
-      return res.status(200).json({ message: "Logged out successfully" });
+      
+      const user = await User.findById(userId).select("-password");
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      let profileData: any = { ...user };
+  
+      if (user.role === "student") {
+        const studentProfile = await Student.findOne({ userId: user._id });
+        if (!studentProfile) {
+          return res.status(404).json({ message: "Student profile not found" });
+        }
+        profileData = {...profileData , ...studentProfile};
+      }
+  
+      if (user.role === "recruiter") {
+        const recruiterProfile = await Recruiter.findOne({ userId: user._id });
+        if (!recruiterProfile) {
+          return res.status(404).json({ message: "Recruiter profile not found" });
+        }
+        profileData = {...recruiterProfile, ...profileData};
+      }
+  
+      res.status(200).json(profileData);
     } catch (error:any) {
-      return res.status(500).json({ message: "Something went wrong", error: error.message });
+      res.status(500).json({ message: "Something went wrong", error: error.message });
     }
   };
   
