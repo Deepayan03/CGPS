@@ -14,7 +14,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction): void => 
     try {
         // Verify the token
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string || "secret");
-        console.log(decoded);
+        // console.log(decoded);
         (req as any).user = decoded; 
         next();
     } catch (error) {

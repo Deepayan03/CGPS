@@ -4,6 +4,7 @@ import { User } from "../models/UserModel";
 import { Student } from "../models/StudentModel";
 import { Recruiter } from "../models/RecruiterModel";
 import jwt from "jsonwebtoken";
+import { profile } from "node:console";
 const JWT_SECRET: string = process.env.JWT_SECRET || "secret";
 // In the login page form fields will be decided based on the role of the user.
 // If the user is a student, the form will have fields like roll number, department, cgpa, skills, etc.
@@ -158,37 +159,46 @@ export const logout = async (
   }
 };
 
-export const getMyProfile = async (req: any, res: any) => {
+export const getProfile = async (req: any, res: any) => {
     try {
       const userId = req.params.userId; 
-      
+      // console.log(userId);
       if (!userId) {
         return res.status(401).json({ message: "Unauthorized" });
       }
   
       
       const user = await User.findById(userId).select("-password");
-  
+      console.log("user")
+      console.log(user)
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-  
-      let profileData: any = { ...user };
-  
+      type pdata = {
+        user:any,
+        recruiter?:any,
+        student?:any
+      }
+      let profileData: pdata = { user};
+      
       if (user.role === "student") {
         const studentProfile = await Student.findOne({ userId: user._id });
         if (!studentProfile) {
           return res.status(404).json({ message: "Student profile not found" });
         }
-        profileData = {...profileData , ...studentProfile};
+        profileData.student = studentProfile;
       }
   
       if (user.role === "recruiter") {
-        const recruiterProfile = await Recruiter.findOne({ userId: user._id });
+        // console.log("Recruiter:")
+        const recruiterProfile = await (Recruiter as any ).findOne({ userId: user._id }) ;
+        // console.log(recruiterProfile)
         if (!recruiterProfile) {
           return res.status(404).json({ message: "Recruiter profile not found" });
         }
-        profileData = {...recruiterProfile, ...profileData};
+        // console.log(user , recruiterProfile)
+        profileData.recruiter = recruiterProfile;
+        // console.log(profileData)
       }
   
       res.status(200).json(profileData);

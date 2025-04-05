@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                          // Modern target for JS output.
+    "lib": ["DOM", "DOM.Iterable", "ES2020"],     // Libraries to include (e.g., browser and ES features).
+    "module": "ESNext",                           // Use native ESM output.
+    "moduleResolution": "node",                   // Node module resolution for third-party modules.
+    "jsx": "react-jsx", 
+    "allowImportingTsExtensions": true,                          // Enables the new JSX transform in React 17+.
+    "strict": true,                               // Enable all strict type-checking options.
+    "noEmit": true,                               // Do not output compiled files (useful when bundling with Vite/Webpack).
+    "esModuleInterop": true,                      // Allows default imports from CommonJS modules.
+    "allowSyntheticDefaultImports": true,         // Enables default imports even when module doesn't export one.
+    "forceConsistentCasingInFileNames": true,     // Ensure file imports have consistent casing.
+    "skipLibCheck": true,                         // Skip type checking of declaration files for speed.
+    "isolatedModules": true,                      // Ensure each file can be safely transpiled on its own.
+    "resolveJsonModule": true,                    // Allow importing JSON files.
+    "noFallthroughCasesInSwitch": true,           // Prevent fallthrough in switch statements.
+    "noUnusedLocals": true,                       // Report unused variables.
+    "noUnusedParameters": true,                   // Report unused function parameters.
+    "baseUrl": ".",                               // Base directory to resolve non-relative module names.
+    "paths": {
+      "@/*": ["src/*"]                           // Setup alias for cleaner imports.
+    }
+  },
+  "include": ["src"]
+}

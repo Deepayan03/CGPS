@@ -6,7 +6,7 @@ import { Job } from "../models/JobModel";
 export const applyToJob = async (req: Request, res: Response): Promise<void> => {
     try {
         const { jobId } = req.body;
-        const studentId = (req as any).user.userId; // Extract student ID from token
+        const studentId = (req as any).user.userId; 
 
         const job = await Job.findById(jobId);
         if (!job) {

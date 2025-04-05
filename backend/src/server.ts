@@ -11,15 +11,20 @@ import morgan from "morgan";
 const app = express();
 const port: number = 3000;
 dotenv.config();
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true, 
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+  })
+);
 connectDB();
 app.use(morgan("dev"));
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World!");
 });
-app.use(cors({
-  origin: "*",
-  credentials: true,
-}));
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
