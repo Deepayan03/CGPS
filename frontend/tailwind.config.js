@@ -1,16 +1,12 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+import flowbiteReact from "flowbite-react/plugin/tailwindcss";
+
+// tailwind.config.js
+const tailwindConfig = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}", ".flowbite-react/class-list.json"],
   theme: {
-    extend: {
-      colors: {
-        border: "hsl(240, 5%, 84%)", // For border-border
-        ring: "hsl(240, 100%, 50%)", // Add ring color for outline-ring/50
-      },
-    },
+    extend: {},
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [flowbiteReact],
 };
+
+export default tailwindConfig;
