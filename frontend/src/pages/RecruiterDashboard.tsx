@@ -5,7 +5,7 @@ const StudentDashboard = () => {
   return (
     <StudentSidebar>
 
-        <div>RecruiterDashboard</div>
+        <div>StudentDashboard</div>
     </StudentSidebar>
   )
 }

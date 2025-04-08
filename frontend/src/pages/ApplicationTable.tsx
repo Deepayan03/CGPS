@@ -44,6 +44,15 @@ const ApplicationsTable: React.FC<ApplicationsTableProps> = ({
 
   const cancelApplication = async (applicationId: string) => {
     setLoading(true);
+    // Add a prompt to confirm cancellation
+    const confirmCancel = window.confirm(
+      "Are you sure you want to cancel this application?"
+    );
+    if (!confirmCancel) {
+      setLoading(false);
+      return;
+    }
+    // Proceed with cancellation
     try {
       const response = await axiosInstance.delete(
         `/api/applications/cancel/${applicationId}`

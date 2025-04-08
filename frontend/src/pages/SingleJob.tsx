@@ -46,6 +46,7 @@ const SingleJob: any = (isStudent = true) => {
       const { data } = await axiosInstance.get(`/api/jobs/${id}`);
       console.log(data);
       setJob(data);
+      
       console.log(data);
     } catch (error: any) {
       toast.error(
@@ -57,7 +58,14 @@ const SingleJob: any = (isStudent = true) => {
   };
   const handleJobApplication = async () => {
     try {
-      const { data } = await axiosInstance.post(`/api/jobs/${id}/apply`);
+        const confirmApplication = window.confirm(
+            "Are you sure you want to apply to this job ?"
+          );
+          if (!confirmApplication) {
+            setLoading(false);
+            return;
+          }
+      const { data } = await axiosInstance.post(`/api/applications/apply`,{jobId:id});
       toast.success(data.message);
       setJob((prevJob: any) => ({
         ...prevJob,
@@ -128,7 +136,7 @@ const SingleJob: any = (isStudent = true) => {
               </TableCell>}
               {isStudent &&  <TableCell>
               { job.applications.includes(user._id) ?( <Button disabled >  
-                Already Applied
+                Applied
                 </Button>):(
                 <Button color={"alternative"} onClick={handleJobApplication}>
                   Apply for this job

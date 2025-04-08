@@ -22,7 +22,7 @@ export const applyToJob = async (req: Request, res: Response): Promise<void> => 
 
         const application:any = await Application.create({ student: studentId, job: jobId });
 
-        job.applications.push(application._id);
+        job.applications.push(studentId);
         await job.save();
 
         res.status(201).json({ message: "Application submitted successfully", application });
