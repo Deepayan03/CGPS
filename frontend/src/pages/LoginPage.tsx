@@ -47,10 +47,18 @@ export default function RegisterForm() {
     }
 
     try {
-      const {user}:{user:any} = await axiosInstance.post("/api/auth/login", formData);
-      localStorage.setItem("userData",JSON.stringify(user));
-      toast.success("Registration successful! Please check your email for verification.");
-      navigate("/");
+      const {data} = await axiosInstance.post("/api/auth/login", formData);
+      console.log(data.user);
+      localStorage.setItem("userData",JSON.stringify(data.user));
+      toast.success("Login successful!");
+
+        if (data.user.role === "student") {
+            navigate("/studentDashboard");
+        } else if (data.user.role === "recruiter") {
+            navigate("/recruiterDashboard");
+        } else {
+            navigate("/");
+        }
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Login failed. Please try again.");
     } finally {

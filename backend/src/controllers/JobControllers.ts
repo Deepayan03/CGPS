@@ -62,4 +62,17 @@ const deleteJob = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
+export const getSingleJob = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const jobId = req.params.id;
+        const job = await Job.findById(jobId).populate("postedBy", "name");
+        if (!job) {
+            res.status(404).json({ message: "Job not found" });
+            return;
+        }
+        res.status(200).json(job);
+    } catch (error:any) {
+        res.status(500).json({ message: error.message });
+    }
+};
 export { postJob, getJobs, updateJob, deleteJob };

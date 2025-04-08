@@ -13,7 +13,7 @@ const port: number = 3000;
 dotenv.config();
 app.use(
   cors({
-    origin: "http://localhost:3002",
+    origin: "http://localhost:3001",
     credentials: true, 
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: "Content-Type,Authorization",

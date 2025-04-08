@@ -1,8 +1,8 @@
 import React, { useState, useEffect,  } from 'react';
 import { TextInput, Button } from 'flowbite-react';
 import { FaPencilAlt as FaPencilAltIcon, FaSave as FaSaveIcon } from 'react-icons/fa';
-import RecruiterSidebar from './RecruiterSidebar';
 import { ProfileData as UserData } from '../types/authTypes';
+import StudentSidebar from './StudentSidebar';
 
 
 const Profile: React.FC = () => {
@@ -98,7 +98,7 @@ const Profile: React.FC = () => {
   );
 
   return (
-    <RecruiterSidebar>
+    <StudentSidebar>
     <div className="flex-grow  bg-white shadow-lg rounded-lg p-10">
       <h2 className="text-2xl font-semibold text-gray-800 mb-6">Profile</h2>
       {renderInputField('Name', 'name')}
@@ -130,7 +130,7 @@ const Profile: React.FC = () => {
         </div>
       )}
     </div>
-  </RecruiterSidebar>
+  </StudentSidebar>
   
   );
 };

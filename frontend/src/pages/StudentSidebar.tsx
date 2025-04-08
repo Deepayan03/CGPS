@@ -1,7 +1,7 @@
 import SidebarComponent from '../components/Sidebar';
 import React from 'react'
 import { HiHome, HiBriefcase, HiDocumentText, HiUser, HiCog, HiLogout } from "react-icons/hi";
-const RecruiterSidebar = ({ children }: { children?: React.ReactNode }) => {
+const StudentSidebar = ({ children }: { children?: React.ReactNode }) => {
       const sidebarItems = [
             {
               title: "Dashboard",
@@ -45,4 +45,4 @@ const RecruiterSidebar = ({ children }: { children?: React.ReactNode }) => {
   )
 }
 
-export default RecruiterSidebar
+export default StudentSidebar
