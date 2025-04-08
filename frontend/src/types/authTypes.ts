@@ -19,3 +19,22 @@ export interface FormData {
       password: string;
     };
   
+export interface ProfileData {
+  user: {
+    name: string;
+    email: string;
+    role: 'student' | 'recruiter';
+    address: string;
+  };
+  recruiter?: {
+    companyName: string;
+    industry: string;
+  };
+  student?: {
+    rollNumber: string;
+    department: string;
+    cgpa: string;
+    skills: string[];
+    placementStatus: string;
+  };
+}

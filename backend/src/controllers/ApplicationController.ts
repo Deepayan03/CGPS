@@ -135,3 +135,43 @@ export const getJobApplications = async (req: Request, res: Response): Promise<v
         res.status(500).json({ message: "Internal Server Error", error });
     }
 };
+
+// verify
+export const getApplicantsByJobId = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { jobId } = req.params;
+        const recruiterId = (req as any).user.userId;
+
+        const job = await Job.findById(jobId).populate("applications");
+        if (!job) {
+            res.status(404).json({ message: "Job not found" });
+            return;
+        }
+
+        if (job.postedBy.toString() !== recruiterId.toString()) {
+            res.status(403).json({ message: "Unauthorized: You can only view applications for your jobs" });
+            return;
+        }
+
+        res.status(200).json({ applications: job.applications });
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error", error });
+    }
+}
+
+// Get All Applications by Student ID
+export const getApplicationsByStudentId = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const studentId = (req as any).user.userId;
+
+        const applications = await Application.find({ student: studentId }).populate("job");
+        if (!applications) {
+            res.status(404).json({ message: "No applications found for this student" });
+            return;
+        }
+
+        res.status(200).json({ applications });
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error", error });
+    }
+}

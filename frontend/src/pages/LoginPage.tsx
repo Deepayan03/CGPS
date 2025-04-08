@@ -47,7 +47,8 @@ export default function RegisterForm() {
     }
 
     try {
-      await axiosInstance.post("/api/auth/login", formData);
+      const {user}:{user:any} = await axiosInstance.post("/api/auth/login", formData);
+      localStorage.setItem("userData",JSON.stringify(user));
       toast.success("Registration successful! Please check your email for verification.");
       navigate("/");
     } catch (error: any) {

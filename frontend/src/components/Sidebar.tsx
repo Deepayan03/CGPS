@@ -1,44 +1,12 @@
-"use client";
-
-import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle, Sidebar, SidebarCollapse, SidebarItem, SidebarItemGroup, SidebarItems } from "flowbite-react";
+import { Navbar, NavbarBrand, NavbarCollapse, NavbarLink, NavbarToggle, Sidebar, SidebarItem, SidebarItemGroup, SidebarItems } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { HiHome, HiBriefcase, HiDocumentText, HiUser, HiCog, HiLogout } from "react-icons/hi";
+import { HiBriefcase} from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/download.png"
-export default function StudentSidebar() {
+import { ElementType } from "react";
+export default function SidebarComponent({sidebarItems}:{sidebarItems: { title: string; icon: React.ElementType; link: string }[]}) {
     console.log(HiBriefcase)
-    const sidebarItems = [
-        {
-          title: "Dashboard",
-          icon: HiHome,
-          link: "/", 
-        },
-        {
-          title: "Job Listings",
-          icon: HiBriefcase,
-          link: "/listings", 
-        },
-        {
-          title: "My Applications",
-          icon: HiDocumentText,
-          link: "/my-applications", 
-        },
-        {
-          title: "Profile",
-          icon: HiUser,
-          link: "/profile", 
-        },
-        {
-          title: "Settings",
-          icon: HiCog,
-          link: "/settings", 
-        },
-        {
-          title: "Logout",
-          icon: HiLogout,
-          link: "/logout",
-        },
-      ];
+   
     const castIcon = (Icon: any) =>
         Icon as unknown as React.FC<React.SVGProps<SVGSVGElement>>;
     const CustomNavLink = ({
@@ -66,7 +34,7 @@ export default function StudentSidebar() {
       
   return (
     <>
-    <Navbar className="bg-gray-50" fluid rounded>
+    <Navbar className="fixed top-0 left-0 w-full right-0 z-50 bg-gray-50  mb-96">
       <NavbarBrand className="p-0 h-10 flex justify-center items-center" href="/">
         <img src={logo} className=" p-0 h-[200%] w-[100%] " alt="Logo" />
         
@@ -82,8 +50,8 @@ export default function StudentSidebar() {
         
       </NavbarCollapse>
     </Navbar>
-    <Sidebar  aria-label="Student Dashboard Sidebar" className="w-64 h-full bg-gray-50 min-h-screen">
-  <SidebarItems className="h-full">
+    <Sidebar   className="fixed top-16 left-0 w-64 bg-gray-50 h-full border-r">
+  <SidebarItems className="h-full ">
     <SidebarItemGroup>
       {sidebarItems.map((item, index) => (
         <SidebarItem

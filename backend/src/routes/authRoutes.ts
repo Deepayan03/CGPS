@@ -10,3 +10,4 @@ router.post("/logout", authenticate, logout as express.RequestHandler);
 router.get("/profile/:userId",authenticate , getProfile as express.RequestHandler);
 
 export default router;
+

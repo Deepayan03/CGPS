@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import connectDB from "./db/dbConnection";
 import authRoutes from "./routes/authRoutes";
 import studentRoutes from "./routes/studentRoutes";
-import recruiterRoutes from "./routes/applicationRoutes";
+import applicationRoutes from "./routes/applicationRoutes";
 import jobRoutes from "./routes/jobRoutes";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/students", studentRoutes);
-app.use("/api/recruiters", recruiterRoutes);
+app.use("/api/applications", applicationRoutes);
 app.use("/api/jobs", jobRoutes);
 
 
